@@ -1,6 +1,6 @@
 /* Dependencies */
 var _ = require('lodash');
-var Constants = require('libs/constants');
+
 var FlexibleFilter = require('./flexibleFilter');
 var FlexibleFilterRenderer = require('./flexibleFilterRenderer');
 var PageTakeover = require('libs/pageTakeover');
