@@ -1,0 +1,100 @@
+
+<div class="l-row l-margin-bottom-ers t-bg-white t-shadow-box">
+  <div class="l-filter-container l-display-none l-m-display-block l-l-col-12 l-m-col-8 l-padding-five-quarters">
+    <h2 class="t-font-weight-bold t-font-ml t-line-height-l l-margin-none">{{filterResultsText}}<span class="t-font-s l-padding-left-half l-margin-left-quarter l-padding-right-half l-padding-top-quarter l-padding-bottom-quarter t-uppercase"><span class="t-icon-flash l-margin-right-quarter"></span>{{newText}}</span>
+    </h2>
+    <div class="l-primary-filter">
+      <div class="mi-accordion l-l-col-12 l-m-col-6 l-padding-none l-margin-top-five-quarters">  
+      <div class="l-accordion-heading l-clear">
+        {{#each categories}}
+            {{#if-cond @index 'lt' 2}}
+              <div class="heading-filters{{#if-cond @index 'eq' 0}}  l-m-col-8 l-l-col-5 {{else}}  l-m-col-8 l-l-col-5 {{/if-cond}}">
+                <label class="l-display-inline t-font-m t-font-weight-semibold t-line-height-m t-color-black">{{description}}{{../colonText}}</label>
+                  <ul class="l-l-filter l-display-inline">
+                    {{#each defaultOptionsList}}
+                      <li data-category="{{../code}}" data-attribute="{{code}}" data-label="{{label}}"  class="t-cursor-pointer js-primary-filter">{{label}}<span class="t-icon t-icon-cross t-cursor-pointer l-margin-left-quarter l-display-none "></span></li>
+                    {{/each}}
+                  </ul>
+              </div> 
+            {{/if-cond}}
+        {{/each}} 
+        <div class="l-l-col-2 l-m-col-2">
+          <a href="#" class="l-display-none l-l-display-inline t-font-m t-font-weight-semibold t-color-darkblue  l-toggle-list" data-label-expand="{{seeFiltersText}}" data-label-collapse="{{seeFiltersText}}">
+            <span class="t-caption-label">{{seeFiltersText}}</span>
+            <span class="t-caption-icon t-icon-arrow-down l-margin-left-quarter"></span>
+          </a>
+        </div> 
+      </div>
+      <div class="l-accordion-content  l-display-none l-l-col-12">
+        {{#each categories}}
+          {{#if-cond @index 'gt' 1}}
+            <div class="l-l-col-3 other-filters">
+              <h2 class="t-font-ml font t-line-height-m l-padding-none">{{description}}</h2>
+              <ul class="l-accordion-content-filter">
+                {{#each defaultOptionsList}}  
+                  <li>
+                    <div class="l-form-group">
+                      <input type="checkbox" class="js-desktop-checkbox" data-category="{{../code}}" data-attribute="{{code}}" data-label="{{label}}"  name="filter_option" id="{{code}}" value="{{code}}" />
+                      <label for="{{code}}" class="l-margin-top">{{label}}</label>
+                    </div>
+                  </li>
+                {{/each}} 
+              </ul>
+            </div>
+          {{/if-cond}}
+        {{/each}} 
+      </div>
+      </div>
+      <div class="l-display-none l-m-display-inline l-l-display-none t-toggle-drop-down t-font-m t-font-weight-semibold t-color-darkblue  l-toggle-list">
+       <span class="t-caption-label">{{seeFiltersText}}<span class="t-caption-icon t-icon-arrow-right l-margin-left-quarter">
+      </div>
+    </div>
+  </div>
+  <div class="l-m-display-none t-bg-white l-padding-five-quarters">
+    <a class="t-font-weight-semibold  t-font-m  t-line-height-l t-color-darkblue">{{filterResultsText}}<span class="t-bg-yellow t-font-s l-padding-left-half t-color-black  l-padding-right-half l-padding-top-quarter l-padding-bottom-quarter t-uppercase l-margin-left-five-quarters">{{newText}}</span>
+      <span class="t-caption-icon t-icon-arrow-right t-color-darkblue l-float-right t-toggle-drop-down t-cursor-pointer "></span>
+    </a>
+  </div>
+</div>
+<div class="l-l-display-none l-takeover">
+    <div class="js-sort-takeover is-hidden">
+      <div class="l-m-col-8">
+        <div class="takeover-header l-padding">
+          <h1 class="t-font-l t-font-weight-bold t-line-height-s">{{filtersText}}<span class="back-btn t-cursor-pointer t-icon t-icon-cross t-cursor-pointer"></span></h1>  
+        </div>
+        <div class="takeover-content t-shadow-box l-padding">
+          {{#each categories}}
+            {{#if-cond @index 'gt' 1}}
+            <div class="mi-accordion t-border-grey l-margin-top-half l-clear "> 
+              <div class="l-accordion-heading">
+                <h2 class="l-padding-none t-font-ml l-margin-none t-font-weight-bold t-line-height-s l-display-inline-block ">{{description}}</h2>  
+                <a href="#" class="t-toggle-drop-down l-toggle-list l-float-right">
+                    <span class="t-caption-icon t-icon-arrow-down t-color-digitalgrey t-line-height-xs  "></span>
+                </a>
+              </div>
+              <div class="l-accordion-content l-display-none l-margin-top-one-and-half ">
+                  <ul class="l-accordion-content-filter">
+                    {{#each defaultOptionsList}}  
+                      <li>
+                        <div class="l-form-group">
+                          <input type="checkbox" class="js-takeover-checkbox"  data-category="{{../code}}" data-attribute="{{code}}" data-label="{{label}}"  name="filter_option" id="{{code}}" value="{{code}}" />
+                          <label for="{{code}}" class="l-margin-top" >{{label}}</label>
+                        </div>
+                      </li>   
+                    {{/each}} 
+                  </ul>
+              </div>  
+            </div>  
+            {{/if-cond}}
+          {{/each}}
+        </div>
+        <div class="l-row l-margin-top-five-quarters l-padding">
+          <button href="#" class="m-button m-button-secondary l-padding-top-three-quarters l-padding-bottom-three-quarters l-s-col-2 js-clear-filter">Clear All</button>
+          <button href="#" class="js-apply-filter m-button m-button-primary l-padding-top-three-quarters l-padding-bottom-three-quarters  l-s-col-2">Apply</button>
+        </div>
+      </div>
+    </div> 
+</div>
+<div class="l-selected-pills l-display-none l-m-display-block">
+  <ul></ul>
+</div>

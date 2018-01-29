@@ -1,0 +1,137 @@
+<div class="l-row l-margin-bottom-double t-bg-white">
+    <div class="l-display-none l-l-display-block l-l-col-12 l-xl-col-12 l-m-padding-double-three-quarters l-border-box-sizing t-border-bottom-lightgrey {{#if-cond rateType 'eq' 'dealsAndPackages'}}{{#unless @root.isGroupSelected}} l-l-yellow-left-border l-padding-left-adjust{{/unless}}{{/if-cond}}">
+        <h2 class="l-l-col-9 l-xl-col-9 l-margin-none">
+            {{#if isSelectedRoom}}<span class="t-icon t-icon-green-tick l-margin-right-half l-margin-bottom-quarter t-selected-room-icon"></span>{{/if}}{{description}}
+        </h2>
+        <span class="l-padding-half l-float-right analytics-click m-room-details-link mi-popover t-uppercase t-line-height-xs t-label" data-url="{{@root.roomLink.baseURL}}?marshaCode={{@root.marshaCode}}&roomPoolCode={{roomDetailsList.[0].roomPoolCode}}&displayRoomPoolList=Y&src=ratelist&selectedTabName={{rateType}}&productId={{roomDetailsList.[0].productId}}" role="link" tabindex="0">
+            {{roomPoolTypeLabel}}
+        </span>
+    </div>
+
+    {{#if @root.cancellationMessage}}
+        <input type="hidden" value="{{@root.cancellationMessage}}">
+    {{/if}}
+    <div class="l-s-col-4 l-m-col-8 l-l-col-3 l-xl-col-3 m-room-rate-container l-border-box-sizing l-padding l-m-padding-double-three-quarters {{#if-cond rateType 'eq' 'dealsAndPackages'}}{{#unless @root.isGroupSelected}} l-yellow-left-border l-padding-left-custom{{/unless}}{{/if-cond}} t-border-bottom-lightgrey l-picture-container">
+        {{#if roomDetailsList.[0].imageURL}}
+            {{#with (lookup roomDetailsList 0)}}
+                {{#if @root.isRitz}}
+                    <div class="m-photo-container l-s-col-4 l-m-col-3 l-l-col-split-3of3">
+                        {{>picture-ers description=../description}}
+                    </div>
+                {{else}}
+                    <a class="js-photo-gallery analytics-click l-s-col-4 l-m-col-3 l-l-col-split-3of3" href="{{@root.roomLink.baseURL}}?marshaCode={{@root.marshaCode}}&roomPoolCode={{roomPoolCode}}&displayRoomPoolList=Y&src=ratelist&selectedTabName={{rateType}}&productId={{productId}}" target="{{@root.roomLink.target}}" data-analytics='{{@root.roomLink.dataAnalytics}}'>
+                        <div class="m-photo-container">
+                            {{>picture-ers description=../description}}
+                        </div>
+                    </a>
+                {{/if}}
+            {{/with}}
+        {{else}}
+            <div class="l-s-col-4 l-m-col-3 l-l-col-split-3of3 l-image-not-found t-bg-lightgrey l-s-text-align-center l-display-table">
+                    <p class="l-margin-none l-display-table-cell l-middle-valign">
+                        {{@root.componentLabels.photoComingSoon}}
+                    </p>
+            </div>
+        {{/if}}
+        <div class="l-display-block l-l-display-none l-s-col-4 l-m-col-5 l-m-col-last l-border-box-sizing l-room-name l-l-col-last">
+            <h2 class="l-margin-bottom-none l-s-margin-top l-m-margin-top-half">
+                {{#if isSelectedRoom}}<span class="t-icon t-icon-green-tick l-margin-right-half l-margin-bottom-quarter t-selected-room-icon"></span>{{/if}}{{description}}
+            </h2>
+            <div class="l-margin-top-half t-line-height-xs">
+                <span class="l-padding-half l-float-right analytics-click m-room-details-link mi-popover t-uppercase t-line-height-xs t-label" data-url="{{@root.roomLink.baseURL}}?marshaCode={{@root.marshaCode}}&roomPoolCode={{roomDetailsList.[0].roomPoolCode}}&displayRoomPoolList=Y&src=ratelist&selectedTabName={{rateType}}&productId={{roomDetailsList.[0].productId}}" role="link" tabindex="0">
+                    {{roomPoolTypeLabel}}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="l-rate-container js-rate-container l-row l-s-col-4 l-m-col-8 l-l-col-9 l-l-col-last l-xl-col-9 l-xl-col-last l-border-box-sizing l-padding l-padding-top-quarter l-m-padding-double-three-quarters-exclude-top">
+        {{#each roomDetailsList}}
+            <div class="{{#if @root.freeCancellation}}cancellable{{else}}not-cancellable{{/if}} l-row rph-row widget-container t-border-bottom-lightgrey l-padding-top l-padding-bottom l-pos-relative l-width-max l-rate-inner-container l-clear-both{{#if ../pagination.visible}}{{#if-cond @index 'gte' ../pagination.initialValue}} is-hidden-container{{/if-cond}}{{/if}}" data-cp="{{cashAndPointEligible}}" data-totalprice="{{grandTotalPrice}}" data-totalpricebeforetax="{{priceText}}{{#if decimalText}}.{{decimalText}}{{/if}}" data-policy="{{@root.cancellationMessage}}" data-rphindex="{{@index}}">
+                {{!-- for the heading and room-rate links near to side image --}}
+                <div class="l-rate-middle-column l-l-col-split-4of9 l-xl-col-split-4of9">
+                    <div class="rate-description l-rate-description l-s-col-4 l-m-col-8 l-display-flex">
+                        {{#if membersOnlyRate}}
+                            <span class="l-display-inline-block l-float-left t-icon t-icon-marriott-rewards-tag-svg l-margin-right-half"></span>
+                        {{/if}}
+                        <h3 id="description-{{@index}}-{{productId}}" class="description t-description l-margin-none {{#if-cond rateType 'eq' 'dealsAndPackages'}}{{#unless @root.isGroupSelected}} t-font-m t-line-height-l{{else}} t-font-ml t-line-height-xxl{{/unless}}{{else}} t-font-ml t-line-height-xxl{{/if-cond}}">
+                            {{{rateDescription}}}
+                        </h3>
+                    </div>
+                    {{#if-cond rateType 'eq' 'standard'}}
+                        {{#if memberJoinFreeSaveLabel}}
+                            <p class="l-margin-none t-font-s t-line-height-m t-color-extradarkgrey l-s-col-4 l-m-col-8">{{memberJoinFreeSaveLabel}}</p>
+                        {{/if}}
+                    {{/if-cond}}
+                    <div class="l-rate-detail-link l-margin-top-quarter t-line-height-xs l-s-col-4 l-m-col-8">
+                        <a href="{{@root.rateLink.baseURL}}?src=ratelist&rateProgramCode={{rateProgramCode}}&redemptionflag={{redemptionFlag}}&productId={{productId}}" class="analytics-click room-rules mi-popover t-label t-uppercase" target="{{@root.rateLink.target}}" data-analytics='{{@root.rateLink.dataAnalytics}}' data-mfp-options='{{@root.rateLink.dataMfpOptions}}'>{{@root.rateLink.linkLabel}}
+                        </a>
+                    </div>
+                </div>
+                <div class="l-s-col-4 l-m-col-8 l-l-col-split-5of9 l-xl-col-split-5of9 l-margin-top l-l-margin-top-none l-xl-margin-top-none l-xl-padding-left l-border-box-sizing l-rate-submission rate-submission l-rate-select-container l-display-flex">
+                    {{#if almostSoldOut}}
+                        <p class="limited-availability-msg  l-almost-soldout t-almost-soldout-msg">
+                            {{@root.componentLabels.almostSoldOutLabel}}
+                        </p>
+                    {{/if}}
+                    <div class="without-widget-flow l-rate-display rate-display m-pricing-block l-s-col-2 l-m-col-4 l-l-col-6 l-pos-relative l-align-flex-items">
+                        <input type="hidden" name="{{platinumOverrideLabel}}" value="{{platinumOverride}}" class="l-platinum-override"/>
+                        {{!-- rph value is set to 1 by default. In future, it may need to be retrieved from backend --}}
+
+                        <div class="rate-price m-pricing-block l-l-text-align-right l-em-reset {{#if displayRateFull}}t-long-rate{{/if}} cash-points-right" tabindex="0">
+                            <div class="without-widget-flow t-price l-display-flex">
+                                <div>
+                                    <h2 class="l-display-inline-block l-margin-none">
+                                        {{#if @root.isCountryJapan}}
+                                            {{priceText}}
+                                        {{else}}
+                                            {{priceText}}{{#if decimalText}}<span class="t-decimal-price">{{@root.delimiter}}{{decimalText}}</span>{{/if}}
+                                        {{/if}}
+                                    </h2>
+                                    <span class="t-font-xs t-line-height-xs l-l-display-none">
+                                        {{#if ratePerStay}}
+                                            {{roomRateCurrency}} {{@root.componentLabels.slashStayLabel}}
+                                        {{else if @root.flexibleDate}}
+                                            {{@root.perNightText}} / {{roomRateCurrency}}
+                                        {{else}}
+                                            {{roomRateCurrency}} {{@root.perNightText}}
+                                        {{/if}}
+                                    </span>
+                                    {{#if showTotalLabel}}
+                                        <p class="l-margin-none t-font-xs t-line-height-xs t-font-weight-semibold">
+                                            <span class="t-letter-spacing-s">{{totalAmountForStayExclusiveTaxes}}</span> 
+                                            <span class="t-capitalize">{{@root.componentLabels.totalLabel}}</span>
+                                        </p>
+                                    {{/if}}
+                                </div>
+                                <span class="nightly t-nightly t-font-xs t-line-height-xs l-currency-container l-display-none l-l-display-inline">
+                                    {{#if ratePerStay}}
+                                        {{roomRateCurrency}} {{@root.componentLabels.slashStayLabel}}
+                                    {{else if @root.flexibleDate}}
+                                        {{@root.perNightText}} / {{roomRateCurrency}}
+                                    {{else}}
+                                        {{roomRateCurrency}} {{@root.perNightText}}
+                                    {{/if}}
+                                </span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="without-widget-flow l-rate-button rate-button l-s-col-2 l-m-col-4 l-l-col-6 l-l-col-last l-align-flex-items">
+                        {{>selectButton-rlm-ers}}
+                    </div>
+                </div>
+            </div>
+            {{#if ../pagination.visible}}
+                {{#if-cond (offset @index '+' 1) 'eq' ../pagination.initialValue}}
+                    <div class="l-margin-top l-padding-top-half l-float-right l-row">
+                        <button type="button" class="l-collapsable-panel-button l-see-more-package-button l-padding-none js-more-packages t-cursor-pointer" data-initial-value="{{../pagination.initialValue}}" tabindex="0">
+                            <span class="l-line-height-l">{{../pagination.panelMessage}}</span>
+                            <span class="t-icon-arrow-down t-icon t-font-s l-margin-left-quarter l-see-more-panel-icon"></span>
+                        </button>
+                    </div>
+                {{/if-cond}}
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
